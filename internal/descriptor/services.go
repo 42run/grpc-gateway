@@ -245,11 +245,7 @@ func (r *Registry) newParam(meth *Method, path string) (Parameter, error) {
 	switch target.GetType() {
 	case descriptorpb.FieldDescriptorProto_TYPE_MESSAGE, descriptorpb.FieldDescriptorProto_TYPE_GROUP:
 		glog.V(2).Infoln("found aggregate type:", target, target.TypeName)
-		if IsWellKnownType(*target.TypeName) {
-			glog.V(2).Infoln("found well known aggregate type:", target)
-		} else {
-			return Parameter{}, fmt.Errorf("%s.%s: %s is a protobuf message type. Protobuf message types cannot be used as path parameters, use a scalar value type (such as string) instead", meth.Service.GetName(), meth.GetName(), path)
-		}
+		return Parameter{}, fmt.Errorf("%s.%s: %s is a protobuf message type. Protobuf message types cannot be used as path parameters, use a scalar value type (such as string) instead", meth.Service.GetName(), meth.GetName(), path)
 	}
 	return Parameter{
 		FieldPath: FieldPath(fields),
