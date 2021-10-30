@@ -1,4 +1,4 @@
-module github.com/42run/grpc-gateway
+module github.com/42run/grpc-gateway/v2
 
 go 1.14
 
